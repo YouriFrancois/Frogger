@@ -65,8 +65,9 @@ public class Main extends Application {
         hp=vhp();
         Label lab1= new Label(" hp "+hp);
 
-        move(root1, r);
-        touch(r,r1,r2,r3,r4,r5,r6);
+        move(root1, r );
+        touch(r,r1,r2,r3,r4,r5,r6,lab1);
+
 
         //-------------------------------------------------------------------------------
         hb1.getChildren().addAll(lab,lab1);
@@ -81,11 +82,13 @@ public class Main extends Application {
         t4.setToX(-900);
         t4.play();
 
+
         //=====================================================================================
-        if (vhp()==0){t4.pause();}
+        if (hp==0){System.out.println("hp is 0"); t4.pause();}
 
         Scene scene = new Scene(root1, 600, 400);
-        primaryStage.setTitle(" my game ");
+        primaryStage.setTitle(" my Froger");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -112,25 +115,27 @@ public class Main extends Application {
     public int score(){
         return x+5; }
 
-    public void touch(Rectangle r,Rectangle r1,Rectangle r2,Rectangle r3,Rectangle r4,Rectangle r5,Rectangle r6){
+    public void touch(Rectangle r,Rectangle r1,Rectangle r2,Rectangle r3,Rectangle r4,Rectangle r5,Rectangle r6,Label lab1){
         r.boundsInParentProperty().addListener((ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) -> {
             if( r1.localToScene(r1.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
-                r.setFill(Color.YELLOW);vhp();}
+             vhp();r.setY(r1.getBoundsInLocal().getMinY()+5);r.setY(r1.getBoundsInLocal().getMaxY()+5);}
 
-            if( r2.localToScene(r2.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
-                r.setFill(Color.PINK);vhp();}
+           else if( r2.localToScene(r2.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
+             vhp();r.setY(r2.getBoundsInLocal().getMinY()+5);r.setY(r2.getBoundsInLocal().getMaxY()+5);}
 
-            if( r3.localToScene(r3.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
-                r.setFill(Color.BLACK);vhp();}
+           else if( r3.localToScene(r3.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
+               vhp();r.setY(r3.getBoundsInLocal().getMinY()+5);r.setY(r3.getBoundsInLocal().getMaxY()+5);}
 
-            if( r4.localToScene(r4.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
-                r.setFill(Color.RED);vhp();}
+            else if( r4.localToScene(r4.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
+            vhp();r.setY(r4.getBoundsInLocal().getMinY()+5);r.setY(r4.getBoundsInLocal().getMaxY()+5);}
 
-            if( r5.localToScene(r5.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
-                r.setFill(Color.GREEN);vhp();}
+           else if( r5.localToScene(r5.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
+               vhp(); r.setY(r5.getBoundsInLocal().getMinY()+5);r.setY(r5.getBoundsInLocal().getMaxY()+5);}
 
-            if( r6.localToScene(r6.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
-                r.setFill(Color.BLUE);vhp();}
+           else if( r6.localToScene(r6.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
+             vhp(); r.setY(r6.getBoundsInLocal().getMinY()+5);r.setY(r6.getBoundsInLocal().getMaxY()+5);}
+
+            lab1.setText("life: "+Integer.toString(hp));
         });}
 
     public void move(Pane root1,Rectangle r){
@@ -140,14 +145,14 @@ public class Main extends Application {
                 case A:r.setX(moveleft()) ;break;
                 case D:r.setX(moveright());break;
                 default:System.out.println(" no key "); }
+
         });
+
     }
 
-    public void chp(){
-        hp-=1;}
 
     public int vhp(){
-        System.out.println("hp is"+hp);
+       // System.out.println("hp is"+hp);
         return hp-=1;}
 
 
