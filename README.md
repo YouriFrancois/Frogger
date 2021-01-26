@@ -1,5 +1,5 @@
 # Frogger
-creating a JavaFX game
+creating a JavaFX game</br>
 When i Was little i use to play frogger i decide to recreate it using java fx. 
 I use 6 rectangles for obstacle and 1 for the player
 the 6 rectangles are moving with translate transition
