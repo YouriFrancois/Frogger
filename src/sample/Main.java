@@ -27,7 +27,6 @@ public class Main extends Application {
         r.setFill(Color.RED);
 
         //==========================================================================
-        int sc=0,hp=4;
         Label lab= new Label(" SCORE  "+score());
         //Label lab1= new Label(" hp    "+hp);
         HBox hb1= new HBox(50);
@@ -62,11 +61,9 @@ public class Main extends Application {
 
         //===============================================================================================================
         String str= new String();
-        hp=vhp();
-        Label lab1= new Label(" hp "+hp);
 
-        move(root1, r );
-        touch(r,r1,r2,r3,r4,r5,r6,lab1);
+        Label lab1= new Label(" hp " );
+
 
 
         //-------------------------------------------------------------------------------
@@ -82,9 +79,10 @@ public class Main extends Application {
         t4.setToX(-900);
         t4.play();
 
-
+        move(root1, r );
+        touch(r,r1,r2,r3,r4,r5,r6,lab1,lab);
         //=====================================================================================
-        if (hp==0){System.out.println("hp is 0"); t4.pause();}
+
 
         Scene scene = new Scene(root1, 600, 400);
         primaryStage.setTitle(" my Froger");
@@ -98,7 +96,7 @@ public class Main extends Application {
         launch(args);
     }
     //**********************************************************************
-    int m=320,n=60,x=0, hp=4;
+    int m=300,n=320,sc=0, hp=10;
 
     public int moveleft(){
         if (n<40){n=40;}
@@ -110,12 +108,14 @@ public class Main extends Application {
 
     public int moveup(){
         if (m<0){m=360;score();}
-        return m-=20;}
+//        System.out.println("inside move up 2222");
+        return m-=25;}
 
     public int score(){
-        return x+5; }
+//        System.out.println("if inside scoer 33 ");
+        return sc+=5; }
 
-    public void touch(Rectangle r,Rectangle r1,Rectangle r2,Rectangle r3,Rectangle r4,Rectangle r5,Rectangle r6,Label lab1){
+    public void touch(Rectangle r,Rectangle r1,Rectangle r2,Rectangle r3,Rectangle r4,Rectangle r5,Rectangle r6,Label lab1,Label lab){
         r.boundsInParentProperty().addListener((ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) -> {
             if( r1.localToScene(r1.getBoundsInLocal()).intersects(r.localToScene(r.getBoundsInLocal()))){
              vhp();r.setY(r1.getBoundsInLocal().getMinY()+5);r.setY(r1.getBoundsInLocal().getMaxY()+5);}
@@ -136,6 +136,10 @@ public class Main extends Application {
              vhp(); r.setY(r6.getBoundsInLocal().getMinY()+5);r.setY(r6.getBoundsInLocal().getMaxY()+5);}
 
             lab1.setText("life: "+Integer.toString(hp));
+           lab.setText("Score : "+Integer.toString(sc));
+           if(hp<0){reset();}
+
+
         });}
 
     public void move(Pane root1,Rectangle r){
@@ -150,6 +154,9 @@ public class Main extends Application {
 
     }
 
+public void reset(){
+    m=320;n=60;sc=0;hp=10;
+}
 
     public int vhp(){
        // System.out.println("hp is"+hp);
